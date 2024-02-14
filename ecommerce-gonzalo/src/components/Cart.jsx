@@ -9,7 +9,7 @@ export const Cart = () => {
   const [total, setTotal] = useState(0);
   useEffect(() => {
     const totalPrice = products.reduce(
-      (acc, product) => acc + product.price,
+      (acc, product) => acc + parseFloat(product.price),
       0
     );
     setTotal(totalPrice);

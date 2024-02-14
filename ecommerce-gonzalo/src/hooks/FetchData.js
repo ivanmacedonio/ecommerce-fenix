@@ -14,6 +14,7 @@ const useFetchData = (url, product_id) => {
                     const res = await axios.get(url)
                     setData(res.data)
                     setLoading(false)
+                    console.log(res.data)
             } catch(error){
                 console.log(error)
                 setLoading(false)
