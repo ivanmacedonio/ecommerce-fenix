@@ -4,6 +4,7 @@ import { Loader } from "../src/components/Loader";
 import { Catalogo } from "../src/pages/Catalogo";
 import { Hub } from "../src/pages/Hub";
 import "./App.css";
+import { Checkout } from "./pages/Checkout";
 import { Detail } from "./pages/Detail";
 function App() {
   const router = createBrowserRouter([
@@ -19,7 +20,10 @@ function App() {
       path: "/detail/:id",
       element: <Detail></Detail>,
     },
-
+    {
+      path: "/checkout",
+      element: <Checkout></Checkout>,
+    },
   ]);
   const [loading, setloading] = useState(true);
   useEffect(() => {

@@ -1,23 +1,32 @@
-import React, { useEffect } from "react";
+import { motion } from "framer-motion";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import disc from "../assets/discount.svg";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { Loader } from "../components/Loader";
 import useFetchData from "../hooks/FetchData";
+import { useStore } from "../hooks/useCounterStore";
 import "../styles/detail.css";
 export const Detail = () => {
   const productId = useParams();
   const { data, loading, error } = useFetchData(
     `http://127.0.0.1:9000/detail/${productId.id}/`
   );
-
+  const [add, setAdd] = useState(false);
+  const products = useStore((state) => state.items);
+  const handleAdd = useStore((state) => state.add);
+  function execute(title, price) {
+    handleAdd({
+      title: title,
+      price: price,
+    });
+    setAdd(true);
+  }
   if (error) {
     console.log(error);
   }
-  useEffect(() => {
-    console.log(data);
-  }, [loading]);
+
   return (
     <section>
       <Header></Header>
@@ -43,8 +52,28 @@ export const Detail = () => {
                 </label>
               </section>
             )}
-            {data.available === true ? <button>Añadir al carrito</button> : <button>No disponible</button> }
-            
+            {add ? (
+              <motion.p
+                id="added"
+                initial={{ y: 50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                Producto añadido correctamente.
+              </motion.p>
+            ) : (
+              ""
+            )}
+            {data.available === true ? (
+              <motion.button
+                onClick={() => execute(data.title, data.price)}
+                whileTap={{ scale: 1.1 }}
+              >
+                Añadir al carrito
+              </motion.button>
+            ) : (
+              <button>No disponible</button>
+            )}
           </div>
         </article>
       )}
