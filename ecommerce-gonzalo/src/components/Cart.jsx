@@ -5,6 +5,7 @@ import { useStore } from "../hooks/useCounterStore";
 import "../styles/cart.css";
 export const Cart = () => {
   const products = useStore((state) => state.items);
+  const handleDelete = useStore((state) => state.clear);
   const [open, setOpen] = useState(true);
   const [total, setTotal] = useState(0);
   useEffect(() => {
@@ -55,7 +56,13 @@ export const Cart = () => {
                 </label>
                 <div className="buttons">
                   <Link to={"/checkout"}> Ir a Pagar</Link>
-                  <p>Vaciar carrito</p>
+                  <p
+                    onClick={() => {
+                      handleDelete();
+                    }}
+                  >
+                    Vaciar carrito
+                  </p>
                 </div>
               </div>
             </div>

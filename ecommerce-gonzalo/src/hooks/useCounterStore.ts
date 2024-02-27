@@ -2,6 +2,7 @@ import { create } from 'zustand';
 interface ItemsState {
   items: Item[]
   add: (value: Item ) => void
+  clear: () => void
 }
 interface Item {
   title: string,
@@ -14,4 +15,5 @@ export const useStore = create<ItemsState>((set) => ({
     set((state) => ({
       items: [...state.items, value],
     })),
+  clear: () => set({items: []}),
 }));

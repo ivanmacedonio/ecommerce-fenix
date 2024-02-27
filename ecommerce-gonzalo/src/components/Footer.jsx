@@ -7,7 +7,7 @@ import useFetchData from "../hooks/FetchData";
 import "../styles/footer.css";
 export const Footer = () => {
   const { data, loading, error } = useFetchData(
-    "http://127.0.0.1:9000/products/"
+    "https://fenix-api-express.onrender.com/products/"
   );
   const nav = useNavigate();
   return (
@@ -18,6 +18,13 @@ export const Footer = () => {
         <footer className="products-cnt" style={{ marginBottom: "10rem" }}>
           {data.slice(0, 3).map((product, index) => (
             <article key={index}>
+              {product.discount !== null ? (
+                <div className="flag">
+                  <span>10% de descuento</span>
+                </div>
+              ) : (
+                ""
+              )}
               <motion.div
                 className="product-item"
                 initial={{ opacity: 0, y: 100 }}

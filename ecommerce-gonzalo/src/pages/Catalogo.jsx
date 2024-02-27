@@ -8,7 +8,7 @@ import useFetchData from "../hooks/FetchData";
 import "../styles/catalogo.css";
 export const Catalogo = () => {
   const { data, loading, error } = useFetchData(
-    "http://127.0.0.1:9000/products/"
+    "https://fenix-api-express.onrender.com/products/"
   );
   const [searchTerms, setSearchTerms] = useState("");
   const [filteredProducts, setFilteredProducts] = useState(null);
@@ -50,13 +50,20 @@ export const Catalogo = () => {
           <div className="products-cnt">
             {filteredProducts.map((product, index) => (
               <article key={index}>
+                {product.discount !== null ? (
+                  <div className="flag">
+                    <span>10% de descuento</span>
+                  </div>
+                ) : (
+                  ""
+                )}
                 <motion.div
                   className="product-item"
                   initial={{ opacity: 0, y: 100 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
                   onClick={() => {
-                    nav(`/detail/${product.id}/`);
+                    nav(`/detail/${product._id}/`);
                   }}
                 >
                   {product.available === false ? (
